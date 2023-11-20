@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include <sstream>
 
 using namespace std;
 
@@ -11,12 +12,37 @@ private:
     vector<bool> seatAvailability;
 
 public:
-    Airplane() {}
-    void loadConfiguration(const string& configData) {}
-    bool checkSeatAvailability(int seatNumber) const { return true; }
-    bool bookSeat(int seatNumber) { return true; }
-    bool returnSeat(int seatNumber) { return true; }
-    // Additional methods as needed
+    Airplane() : totalSeats(0) {}
+
+    void loadConfiguration(const string& configData) {
+        // Configuration loading logic
+    }
+
+    bool checkSeatAvailability(int seatNumber) const {
+        if (seatNumber < 0 || seatNumber >= totalSeats) {
+            cout << "Invalid seat number." << endl;
+            return false;
+        }
+        return seatAvailability[seatNumber];
+    }
+
+    bool bookSeat(int seatNumber) {
+        if (!checkSeatAvailability(seatNumber)) {
+            cout << "Seat " << seatNumber << " is not available." << endl;
+            return false;
+        }
+        seatAvailability[seatNumber] = false;
+        return true;
+    }
+
+    bool returnSeat(int seatNumber) {
+        if (seatNumber < 0 || seatNumber >= totalSeats) {
+            cout << "Invalid seat number." << endl;
+            return false;
+        }
+        seatAvailability[seatNumber] = true;
+        return true;
+    }
 };
 
 class Ticket {
@@ -27,10 +53,21 @@ private:
     bool bookingStatus;
 
 public:
-    Ticket() {}
-    void setDetails(const string& passenger, int seat, const string& flight) {}
-    string getDetails() const { return ""; }
-    // Additional methods as needed
+    Ticket(const string& passenger, int seat, const string& flight)
+            : passengerName(passenger), seatNumber(seat), flightInfo(flight), bookingStatus(false) {}
+
+    string getDetails() const {
+        ostringstream details;
+        details << "Passenger: " << passengerName
+                << ", Seat: " << seatNumber
+                << ", Flight: " << flightInfo
+                << ", Booking Status: " << (bookingStatus ? "Confirmed" : "Pending");
+        return details.str();
+    }
+
+    void confirmBooking() {
+        bookingStatus = true;
+    }
 };
 
 class ConfigReader {
