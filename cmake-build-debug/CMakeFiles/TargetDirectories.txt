@@ -1,0 +1,3 @@
+/Users/antoninanovak/CLionProjects/OOP-Airflight-Booking-System/cmake-build-debug/CMakeFiles/OOP_Airflight_Booking_System.dir
+/Users/antoninanovak/CLionProjects/OOP-Airflight-Booking-System/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/antoninanovak/CLionProjects/OOP-Airflight-Booking-System/cmake-build-debug/CMakeFiles/rebuild_cache.dir
